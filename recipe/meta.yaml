@@ -17,11 +17,11 @@ build:
 requirements:
   host:
     - pip
-    - python>=3.7
+    - python >=3.6
   run:
     - arrow >=0.11
     - attrs >=19.1.0
-    - python>=3.7
+    - python >=3.6
     - python-dateutil
     - six >1.5
     - tatsu >4.2
