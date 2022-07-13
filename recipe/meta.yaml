@@ -1,5 +1,5 @@
 {% set name = "ics" %}
-{% set version = "0.7" %}
+{% set version = "0.7.2" %}
 
 package:
   name: {{ name|lower }}
@@ -7,26 +7,21 @@ package:
 
 source:
   url: https://github.com/ics-py/ics.py/archive/v{{ version }}.tar.gz
-  sha256: 4f24ca9843d8539565ca23600b7d17daa1a89fef3f5113ad2da01c7e1aebc6bd
+  sha256: ea66b91463013ef36ce34c502491d2161a899e57111dcc4fd1dca6730a2f9ddf
 
 build:
   noarch: python
-  number: 2
-  script: "{{ PYTHON }} -m pip install . -vv"
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
-    - python >=3.6
     - pip
-    - tatsu >4.2
-    - arrow <0.18,>=0.11
+    - python>=3.7
   run:
-    - python >=3.6
-    # upstream 0.7 requires arrow <0.15,>=0.11
-    # but it cannot be satisfied with python 3.9 in conda (because arrow is not noarch)
-    # I tested ics with arrow 0.15.8, 0.16.0, 0.17.0
-    # and they all passes all tests
-    - arrow <0.18,>=0.11
+    - arrow >=0.11
+    - attrs >=19.1.0
+    - python>=3.7
     - python-dateutil
     - six >1.5
     - tatsu >4.2
@@ -39,7 +34,7 @@ about:
   home: https://github.com/ics-py/ics-py/
   license: Apache-2.0
   license_file: LICENSE.rst
-  summary: "Pythonic iCalendar (RFC 5545) Parser"
+  summary: Pythonic iCalendar (RFC 5545) Parser
   doc_url: https://icspy.readthedocs.io/en/stable/
   dev_url: https://github.com/C4ptainCrunch/ics.py/
 
