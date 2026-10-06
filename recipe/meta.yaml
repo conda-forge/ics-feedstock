@@ -12,28 +12,33 @@ source:
 build:
   noarch: python
   number: 0
-  script: "{{ PYTHON }} -m pip install . -vv"
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   host:
-    - python >=3.6
+    - python {{ python_min }}
+    - setuptools <72  # setup.py imports setuptools.command.test
     - pip
-    - tatsu >4.2
-    - arrow <0.18,>=0.11
-  run:
-    - python >=3.6
-    # upstream 0.7 requires arrow <0.15,>=0.11
-    # but it cannot be satisfied with python 3.9 in conda (because arrow is not noarch)
-    # I tested ics with arrow 0.15.8, 0.16.0, 0.17.0
-    # and they all passes all tests
-    - arrow <0.18,>=0.11
+    # setup.py imports the package
     - python-dateutil
+    - arrow >=0.11
     - six >1.5
-    - tatsu >4.2
+    - tatsu >4.2,<5.16.0
+    - attrs >=19.1.0
+  run:
+    - python >={{ python_min }}
+    - python-dateutil
+    - arrow >=0.11
+    - six >1.5
+    - tatsu >4.2,<5.16.0
+    - attrs >=19.1.0
 
 test:
   imports:
     - ics
+  requires:
+    - python {{ python_min }}
+    - pip
 
 about:
   home: https://github.com/ics-py/ics-py/
